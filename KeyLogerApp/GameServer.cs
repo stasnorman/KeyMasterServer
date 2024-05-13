@@ -16,47 +16,64 @@ namespace KeyLogerApp
 {
     public class GameServer
     {
+        private Tournament tournament;
         private Random random = new Random();
         DateTime restartTime = DateTime.Now.AddMinutes(10);
+        private List<ClientInfo> connectedClients = new List<ClientInfo>();
+
+        private bool acceptingReconnections = false; // Флаг для управления повторным подключением
         private string ipString { get; set; }
         private TcpListener listener { get; set; }
         private bool isRunning { get; set; }
         private string secretCode { get; set; }
-        private Timer gameTimer { get; set; } 
+        private Timer gameTimer { get; set; }
         private Timer countdownTimer { get; set; }
         private int timeLeft { get; set; }
         private int requiredClients { get; set; }
-        private List<ClientInfo> connectedClients = new List<ClientInfo>();
-        private int nextClientId { get; set; } = 1; 
+        private int nextClientId { get; set; } = 1;
 
-        public GameServer(string ipAddress, int port, int clientCount)
+
+        public GameServer(string ipAddress, int port, int clientCount, int totalRounds)  // Добавлен параметр totalRounds
         {
             ipString = ipAddress;
             listener = new TcpListener(IPAddress.Parse(ipAddress), port);
             requiredClients = clientCount;
-            timeLeft = 600; //1800 - 30 минут
-            //timeLeft = 20;
+            tournament = new Tournament(totalRounds);  // Инициализация турнира
+            timeLeft = 30; // Установка времени таймера
             gameTimer = new Timer(timeLeft * 1000);
             gameTimer.Elapsed += OnTimeElapsed;
             gameTimer.AutoReset = false;
-
             countdownTimer = new Timer(1000);
             countdownTimer.Elapsed += OnCountdown;
             countdownTimer.AutoReset = true;
-
-            // Generate and encrypt code
-            secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode(5)));
+            secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode(5))); // Генерация и шифрование кода
         }
+
 
         private void OnTimeElapsed(object sender, ElapsedEventArgs e)
         {
             gameTimer.Stop();
             countdownTimer.Stop();
             SaveResultsToXml();
-            Console.WriteLine("Time os over. All result to be save in server.");
+            Console.WriteLine("Время вышло. Результаты сохранены.");
 
-            ResetGame();
+            if (tournament.CurrentRound < tournament.TotalRounds)
+            {
+                tournament.NextRound();
+                ResetGame();
+                Console.WriteLine($"Начало раунда {tournament.CurrentRound} из {tournament.TotalRounds}.");
+            }
+            else
+            {
+                Console.WriteLine("Турнир окончен. Итоговые очки:");
+                foreach (var score in tournament.PlayerScores)
+                {
+                    Console.WriteLine($"Игрок {score.Key}: {score.Value} очков");
+                }
+                isRunning = false; // Остановка сервера после завершения турнира
+            }
         }
+
 
         private void OnCountdown(object sender, ElapsedEventArgs e)
         {
@@ -91,9 +108,8 @@ namespace KeyLogerApp
             {
                 try
                 {
-                    byte[] message = Encoding.ASCII.GetBytes($"Your ID: {clientInfo.ClientId}\n");
+                    byte[] message = Encoding.ASCII.GetBytes($"Player ID: {clientInfo.ClientId}\n");
                     await stream.WriteAsync(message, 0, message.Length);
-
                     byte[] buffer = new byte[1024];
                     int bytes;
 
@@ -106,35 +122,37 @@ namespace KeyLogerApp
                         if (data == secretCode)
                         {
                             clientInfo.CorrectAnswerTime = DateTime.Now;
-                            byte[] response = Encoding.ASCII.GetBytes("Correct! You've unlocked the code.");
+                            byte[] response = Encoding.ASCII.GetBytes("Congratuation!.");
                             await stream.WriteAsync(response, 0, response.Length);
+                            tournament.UpdateScore(clientInfo.ClientId, 100); // Например, добавление 100 очков за правильный ответ
                             break;
                         }
                         else
                         {
                             string feedback = AnalyzeInput(data, secretCode);
-                            byte[] response = Encoding.ASCII.GetBytes($"Feedback: {feedback}\nTime left: {timeLeft / 60} minutes {timeLeft % 60} seconds.\n");
+                            byte[] response = Encoding.ASCII.GetBytes($"Feedback: {feedback}\nTime is off: {timeLeft / 60} minutes {timeLeft % 60} sec.\n");
                             await stream.WriteAsync(response, 0, response.Length);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Client {clientInfo.ClientId} disconnected: {ex.Message}");
+                    Console.WriteLine($"Client {clientInfo.ClientId} is disconected: {ex.Message}");
                 }
                 finally
                 {
+                    // Удаление клиента из списка активных подключений
+                    connectedClients.Remove(clientInfo);
+                    Console.WriteLine($"Client {clientInfo.ClientId} disconnected. Total connected clients: {connectedClients.Count}");
                     client.Close();
                 }
             }
         }
 
-
-
         // Анализирует ввод пользователя и сравнивает его с секретным кодом
         private string AnalyzeInput(string userInput, string secretCode)
         {
-            int blackMarkers = 0;   
+            int blackMarkers = 0;
             int whiteMarkers = 0;
             var symbolMatches = new Dictionary<char, List<int>>();  // Словарь для совпадающих символов и их позиций
             var secretFrequency = new Dictionary<char, List<int>>();
@@ -195,39 +213,42 @@ namespace KeyLogerApp
                 listener.Start();
                 Console.WriteLine("Server started...");
 
-                while (true)  // Бесконечный цикл для бесконечного перезапуска игры
+                while (true)
                 {
                     isRunning = true;
-                    connectedClients.Clear();  // Очистка списка подключенных клиентов
-                    nextClientId = 1;  // Сброс ID клиентов
+                    connectedClients.Clear();
+                    nextClientId = 1;
+                    acceptingReconnections = false;  // Изначально повторное подключение не разрешено
                     gameTimer.Stop();
                     countdownTimer.Stop();
                     secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode(5)));
                     Console.WriteLine($"New game started with secret code: {secretCode}");
 
-                    // Ожидание подключения необходимого количества клиентов
-                    while (connectedClients.Count < requiredClients)
-                    {
-                        Console.WriteLine("Waiting for players...");
-                        TcpClient client = await listener.AcceptTcpClientAsync();
-                        Console.WriteLine("Player connected!");
-                        _ = HandleClientAsync(client);
-                    }
+                    await AcceptInitialClientsAsync(); // Принимаем начальное количество клиентов
 
                     // Запуск таймеров, когда все игроки подключены
                     gameTimer.Start();
                     countdownTimer.Start();
+                    acceptingReconnections = true;  // Разрешаем повторные подключения после старта таймера
 
                     // Ожидание завершения игрового таймера
                     while (gameTimer.Enabled)
                     {
+                        if (acceptingReconnections && connectedClients.Count < requiredClients)
+                        {
+                            Console.WriteLine("Reconnecting disconnected players...");
+                            await AcceptClientsAsync();  // Переподключение клиентов
+                        }
                         await Task.Delay(1000);
                     }
 
-                    SaveResultsToXml();  // Сохранение результатов игры
+
+                    acceptingReconnections = false; // Отключаем повторные подключения после завершения таймера
+
+                    SaveResultsToXml();
                     Console.WriteLine("Game round is over. Results saved.");
 
-                    ResetGame();  // Подготовка к новому раунду
+                    ResetGame();
                 }
             }
             catch (Exception ex)
@@ -237,17 +258,39 @@ namespace KeyLogerApp
             }
         }
 
-        private void ResetGame()
+        private async Task AcceptInitialClientsAsync()
         {
-            // Переинициализация игровых переменных
-            connectedClients.Clear();  // Очистка списка подключенных клиентов
-            nextClientId = 1;  // Сброс счетчика ID клиентов
-            secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode(5))); // Генерация нового секретного кода
-            timeLeft = 600;  // Сброс времени таймера, было 1800
-            restartTime = DateTime.Now.AddMinutes(30);  // Расчет времени следующего перезапуска
-            Console.WriteLine("Game has been reset. Ready for new players. Next restart at " + restartTime.ToString("HH:mm:ss"));
+            while (isRunning && connectedClients.Count < requiredClients)
+            {
+                Console.WriteLine("Waiting for players...");
+                TcpClient client = await listener.AcceptTcpClientAsync();
+                Console.WriteLine("Player connected!");
+                _ = HandleClientAsync(client);
+            }
         }
 
+
+        private async Task AcceptClientsAsync()
+        {
+            while (isRunning && connectedClients.Count < requiredClients)
+            {
+                Console.WriteLine("Waiting for players...");
+                TcpClient client = await listener.AcceptTcpClientAsync();
+                Console.WriteLine($"Player connected, ID: {nextClientId}");
+                _ = HandleClientAsync(client);
+            }
+        }
+
+
+
+        private void ResetGame()
+        {
+            connectedClients.Clear();
+            nextClientId = 1;
+            secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode(5)));
+            timeLeft = 30;
+            Console.WriteLine("The game has been reset. I am ready for new players. Next restart in" + DateTime.Now.AddMinutes(10).ToString("HH:mm:ss"));
+        }
 
         private void SaveResultsToXml()
         {
@@ -271,7 +314,7 @@ namespace KeyLogerApp
                     new XElement("CorrectAnswerTime", client.CorrectAnswerTime.HasValue ? client.CorrectAnswerTime.Value.ToString("o") : "No correct answer")
                 );
                 xRoot.Add(xClient);
-            Console.WriteLine("10% [||||||.................]");
+                Console.WriteLine("10% [||||||.................]");
             }
             Thread.Sleep(1000);
             Console.WriteLine("45% [|||||||||||||..........]");

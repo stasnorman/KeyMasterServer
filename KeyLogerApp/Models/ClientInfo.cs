@@ -10,6 +10,8 @@ namespace KeyLogerApp.Models
     public class ClientInfo
     {
         public TcpClient TcpClient { get; set; }
+        public NetworkStream Stream { get; set; } // Добавляем это свойство для управления потоком
+
         public int ClientId { get; set; }
         public int CommandCount { get; set; }
         public int TotalBlackMarkers { get; set; }
@@ -20,6 +22,7 @@ namespace KeyLogerApp.Models
         public ClientInfo(TcpClient client, int clientId)
         {
             TcpClient = client;
+            Stream = client.GetStream();  // Инициализируем поток сразу при создании объекта
             ClientId = clientId;
             CommandCount = 0;
             TotalBlackMarkers = 0;

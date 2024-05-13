@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KeyLogerApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc3351542ed548cd74e70593a88d38eb901cb93f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38173d1136294bc936d1aebbdee56638c71317e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("KeyLogerApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KeyLogerApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
