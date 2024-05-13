@@ -1,0 +1,120 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerapp\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|solutionrelative:keylogerapp\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|solutionrelative:keylogerapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C925F3B-43BE-4682-8A1F-802289D93CD3}|KeyLogerClient\\KeyLogerClient.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerclient\\gameclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C925F3B-43BE-4682-8A1F-802289D93CD3}|KeyLogerClient\\KeyLogerClient.csproj|solutionrelative:keylogerclient\\gameclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C925F3B-43BE-4682-8A1F-802289D93CD3}|KeyLogerClient\\KeyLogerClient.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C925F3B-43BE-4682-8A1F-802289D93CD3}|KeyLogerClient\\KeyLogerClient.csproj|solutionrelative:keylogerclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 231,
+          "SelectedChildIndex": 11,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Program.cs",
+              "RelativeDocumentMoniker": "KeyLogerApp\\Program.cs",
+              "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Program.cs",
+              "RelativeToolTip": "KeyLogerApp\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-13T16:58:31.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameClient.cs",
+              "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerClient\\GameClient.cs",
+              "RelativeDocumentMoniker": "KeyLogerClient\\GameClient.cs",
+              "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerClient\\GameClient.cs",
+              "RelativeToolTip": "KeyLogerClient\\GameClient.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAQwBUAAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-11T15:13:08.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerClient\\Program.cs",
+              "RelativeDocumentMoniker": "KeyLogerClient\\Program.cs",
+              "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerClient\\Program.cs",
+              "RelativeToolTip": "KeyLogerClient\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-11T15:05:40.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GameServer.cs",
+              "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\GameServer.cs",
+              "RelativeDocumentMoniker": "KeyLogerApp\\GameServer.cs",
+              "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\GameServer.cs",
+              "RelativeToolTip": "KeyLogerApp\\GameServer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T16:59:10.861Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
