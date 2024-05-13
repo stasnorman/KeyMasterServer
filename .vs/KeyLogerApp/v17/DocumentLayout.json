@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|solutionrelative:keylogerapp\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|solutionrelative:keylogerapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerapp\\models\\clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|solutionrelative:keylogerapp\\models\\clientinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,12 +15,8 @@
       "RelativeMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|solutionrelative:keylogerapp\\models\\tournament.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C925F3B-43BE-4682-8A1F-802289D93CD3}|KeyLogerClient\\KeyLogerClient.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerclient\\gameclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C925F3B-43BE-4682-8A1F-802289D93CD3}|KeyLogerClient\\KeyLogerClient.csproj|solutionrelative:keylogerclient\\gameclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C925F3B-43BE-4682-8A1F-802289D93CD3}|KeyLogerClient\\KeyLogerClient.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C925F3B-43BE-4682-8A1F-802289D93CD3}|KeyLogerClient\\KeyLogerClient.csproj|solutionrelative:keylogerclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|c:\\users\\burnf\\source\\repos\\keylogerappasync\\keylogerapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64AD8C39-EEB8-487F-A81F-3E658AECE140}|KeyLogerApp\\KeyLogerApp.csproj|solutionrelative:keylogerapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 231,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -70,59 +62,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Tournament.cs",
               "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Models\\Tournament.cs",
               "RelativeDocumentMoniker": "KeyLogerApp\\Models\\Tournament.cs",
               "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Models\\Tournament.cs",
               "RelativeToolTip": "KeyLogerApp\\Models\\Tournament.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACUAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T20:09:44.992Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GameClient.cs",
-              "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerClient\\GameClient.cs",
-              "RelativeDocumentMoniker": "KeyLogerClient\\GameClient.cs",
-              "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerClient\\GameClient.cs",
-              "RelativeToolTip": "KeyLogerClient\\GameClient.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAqwBwAAAAbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T18:50:29.715Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ClientInfo.cs",
-              "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Models\\ClientInfo.cs",
-              "RelativeDocumentMoniker": "KeyLogerApp\\Models\\ClientInfo.cs",
-              "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Models\\ClientInfo.cs",
-              "RelativeToolTip": "KeyLogerApp\\Models\\ClientInfo.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAmwA4AAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T18:41:05.814Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerClient\\Program.cs",
-              "RelativeDocumentMoniker": "KeyLogerClient\\Program.cs",
-              "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerClient\\Program.cs",
-              "RelativeToolTip": "KeyLogerClient\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T18:03:57.772Z",
+              "WhenOpened": "2024-05-13T21:54:38.342Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "ClientInfo.cs",
+              "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Models\\ClientInfo.cs",
+              "RelativeDocumentMoniker": "KeyLogerApp\\Models\\ClientInfo.cs",
+              "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Models\\ClientInfo.cs",
+              "RelativeToolTip": "KeyLogerApp\\Models\\ClientInfo.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAACIAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-13T21:35:47.232Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\Program.cs",
               "RelativeDocumentMoniker": "KeyLogerApp\\Program.cs",
@@ -130,8 +96,7 @@
               "RelativeToolTip": "KeyLogerApp\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T18:03:38.585Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-13T18:03:38.585Z"
             },
             {
               "$type": "Document",
@@ -141,7 +106,7 @@
               "RelativeDocumentMoniker": "KeyLogerApp\\GameServer.cs",
               "ToolTip": "C:\\Users\\burnf\\source\\repos\\KeyLogerAppAsync\\KeyLogerApp\\GameServer.cs",
               "RelativeToolTip": "KeyLogerApp\\GameServer.cs",
-              "ViewState": "AQIAAPkAAAAAAAAAAAAUwA0BAAAJAAAA",
+              "ViewState": "AQIAAB0AAAAAAAAAAIA7wG0AAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-10T16:59:10.861Z",
               "EditorCaption": ""

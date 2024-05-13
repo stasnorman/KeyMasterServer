@@ -11,6 +11,7 @@ using KeyLogerApp.Models;
 using System.Xml.Linq;
 using System.Text.Json;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 
 namespace KeyLogerApp
 {
@@ -46,9 +47,27 @@ namespace KeyLogerApp
             countdownTimer = new Timer(1000);
             countdownTimer.Elapsed += OnCountdown;
             countdownTimer.AutoReset = true;
-            secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode(5))); // Генерация и шифрование кода
+            secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode())); // Генерация и шифрование кода
         }
 
+        private string MaskIndices(Dictionary<char, List<int>> symbolMatches)
+        {
+            var maskedIndices = new Dictionary<char, string>();
+            char[] maskCharacters = { '?', '$', '!','#', '@','(',')','%','*' }; // Маскирующие символы
+
+            foreach (var pair in symbolMatches)
+            {
+                StringBuilder maskedString = new StringBuilder(new string('_', secretCode.Length)); // Подготавливаем строку с подчеркиваниями
+                foreach (int index in pair.Value)
+                {
+                    char maskChar = maskCharacters[random.Next(maskCharacters.Length)]; // Выбор случайного маскирующего символа
+                    maskedString[index] = maskChar; // Замена на маскирующий символ
+                }
+                maskedIndices[pair.Key] = maskedString.ToString();
+            }
+
+            return JsonSerializer.Serialize(maskedIndices);
+        }
 
         private void OnTimeElapsed(object sender, ElapsedEventArgs e)
         {
@@ -88,15 +107,24 @@ namespace KeyLogerApp
             }
         }
 
-        private string GenerateSecretCode(int length)
+        private int GenerateRandomCodeLength()
         {
-            string code = "";
-            for (int i = 0; i < length; i++)
-            {
-                code += random.Next(500000).ToString();
-            }
-            return code;
+            int minLength = 15;
+            int maxLength = 30;
+            return random.Next(minLength, maxLength + 1);
         }
+
+        private string GenerateSecretCode()
+        {
+            int length = GenerateRandomCodeLength();
+            byte[] randomBytes = new byte[length];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(randomBytes);
+            }
+            return Convert.ToBase64String(randomBytes);
+        }
+
 
         private async Task HandleClientAsync(TcpClient client)
         {
@@ -154,15 +182,17 @@ namespace KeyLogerApp
         {
             int blackMarkers = 0;
             int whiteMarkers = 0;
-            var symbolMatches = new Dictionary<char, List<int>>();  // Словарь для совпадающих символов и их позиций
+            var symbolMatches = new Dictionary<char, List<int>>();
             var secretFrequency = new Dictionary<char, List<int>>();
 
-            // Создаем словарь частот для секретного кода с позициями каждого символа
+            // Анализ секретного кода и создание словаря частот
             for (int i = 0; i < secretCode.Length; i++)
             {
                 char ch = secretCode[i];
                 if (!secretFrequency.ContainsKey(ch))
+                {
                     secretFrequency[ch] = new List<int>();
+                }
                 secretFrequency[ch].Add(i);
             }
 
@@ -175,7 +205,9 @@ namespace KeyLogerApp
                     blackMarkers++;
                     secretFrequency[userChar].Remove(i);
                     if (!symbolMatches.ContainsKey(userChar))
+                    {
                         symbolMatches[userChar] = new List<int>();
+                    }
                     symbolMatches[userChar].Add(i);
                 }
             }
@@ -187,24 +219,27 @@ namespace KeyLogerApp
                 if (userChar != secretCode[i] && secretFrequency.ContainsKey(userChar) && secretFrequency[userChar].Count > 0)
                 {
                     whiteMarkers++;
-                    int pos = secretFrequency[userChar][0];  // Берем первую доступную позицию
+                    int pos = secretFrequency[userChar][0];
                     secretFrequency[userChar].RemoveAt(0);
                     if (!symbolMatches.ContainsKey(userChar))
+                    {
                         symbolMatches[userChar] = new List<int>();
+                    }
                     symbolMatches[userChar].Add(pos);
                 }
             }
 
-            var response = new
+            // Получаем маскированные индексы
+            string maskedResponse = MaskIndices(symbolMatches);
+
+            // Формирование и возврат JSON-ответа с маскированными индексами
+            return JsonSerializer.Serialize(new
             {
                 BlackMarkers = blackMarkers,
                 WhiteMarkers = whiteMarkers,
-                Matches = symbolMatches.Select(kvp => new { Character = kvp.Key, Positions = kvp.Value }).ToList()
-            };
-
-            return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
+                Matches = JsonSerializer.Deserialize<Dictionary<char, string>>(maskedResponse)
+            }, new JsonSerializerOptions { WriteIndented = true });
         }
-
 
         public async Task StartAsync()
         {
@@ -221,7 +256,7 @@ namespace KeyLogerApp
                     acceptingReconnections = false;  // Изначально повторное подключение не разрешено
                     gameTimer.Stop();
                     countdownTimer.Stop();
-                    secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode(5)));
+                    secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode()));
                     Console.WriteLine($"New game started with secret code: {secretCode}");
 
                     await AcceptInitialClientsAsync(); // Принимаем начальное количество клиентов
@@ -269,7 +304,6 @@ namespace KeyLogerApp
             }
         }
 
-
         private async Task AcceptClientsAsync()
         {
             while (isRunning && connectedClients.Count < requiredClients)
@@ -281,15 +315,13 @@ namespace KeyLogerApp
             }
         }
 
-
-
         private void ResetGame()
         {
             connectedClients.Clear();
             nextClientId = 1;
-            secretCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateSecretCode(5)));
+            secretCode = GenerateSecretCode(); // Секретный код новой длины для каждого раунда
             timeLeft = 30;
-            Console.WriteLine("The game has been reset. I am ready for new players. Next restart in" + DateTime.Now.AddMinutes(10).ToString("HH:mm:ss"));
+            Console.WriteLine("The game has been reset. Ready for new players. Next restart at " + DateTime.Now.AddMinutes(10).ToString("HH:mm:ss"));
         }
 
         private void SaveResultsToXml()
@@ -397,6 +429,19 @@ namespace KeyLogerApp
                     Console.WriteLine("HTTP Server Error: " + ex.Message);
                 }
             }
+        }
+
+        private bool ContainsAllLetters(string input)
+        {
+            var foundLetters = new HashSet<char>();
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                {
+                    foundLetters.Add(char.ToLower(c));
+                }
+            }
+            return foundLetters.Count == 26; // 26 букв в английском алфавите
         }
 
     }

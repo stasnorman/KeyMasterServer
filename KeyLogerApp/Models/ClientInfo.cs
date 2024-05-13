@@ -11,6 +11,7 @@ namespace KeyLogerApp.Models
     {
         public TcpClient TcpClient { get; set; }
         public NetworkStream Stream { get; set; } // Добавляем это свойство для управления потоком
+        public DateTime BlockUntil { get; set; } = DateTime.MinValue;
 
         public int ClientId { get; set; }
         public int CommandCount { get; set; }

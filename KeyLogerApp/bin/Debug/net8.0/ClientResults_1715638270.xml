@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Clients>
+  <Client ID="1">
+    <CommandsSent>1</CommandsSent>
+    <SuccessRate>0,00%</SuccessRate>
+    <ErrorRate>100,00%</ErrorRate>
+    <BlackMarkers>0</BlackMarkers>
+    <WhiteMarkers>0</WhiteMarkers>
+    <LastActivity>2024-05-14T01:11:03.0250152+03:00</LastActivity>
+    <CorrectAnswerTime>No correct answer</CorrectAnswerTime>
+  </Client>
+</Clients>
